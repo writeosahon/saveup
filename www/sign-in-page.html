@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+<!-- sign-in-page -->
+<ons-page id="sign-in-page">
+
+    <form class="valign-wrapper" style="background-color: rgb(237, 231, 246) !important; width: 100%; overflow-x: hidden !important; min-height: 100%" id="login-form" autocomplete="off" data-parsley-inputs="ons-input,textarea,select"
+          data-parsley-excluded="ons-input[type=button], ons-input[type=submit],
+                              ons-input[type=reset], ons-input[type=hidden], [disabled], :hidden">
+        <div style="width: 100%;">
+
+            <!-- layout is displayed for just mobile device i.e. mobile layout-->
+            <ons-row class="hide-on-med-and-up">
+                <ons-col style="text-align: center;">
+                   <img src="css/app-images/app-logo.png" style="height: 8em; width: auto">
+                </ons-col>
+            </ons-row>
+        <ons-row class="hide-on-med-and-up">
+            <ons-col style="text-align: center;">
+                <h5 style="color: #b388ff">SIGN IN</h5>
+            </ons-col>
+        </ons-row> <!-- end of mobile layout -->
+
+            <!-- layout is displayed for just tablet device i.e. tablet layout-->
+            <ons-row class="hide-on-small-only">
+                <ons-col style="text-align: center;">
+                    <img src="css/app-images/app-logo.png" style="height: 12em; width: auto">
+                </ons-col>
+            </ons-row>
+            <ons-row class="hide-on-small-only">
+                <ons-col style="text-align: center;">
+                    <h4 style="color: #b388ff">SIGN IN</h4>
+                </ons-col>
+            </ons-row> <!-- end of tablet layout -->
+
+        <ons-row vertical-align="top" style="margin-bottom: 1em; text-align: center;">
+            <ons-col>
+                <ons-icon icon="md-saveup-icon-saveup-phone" size="28px" class="first" style="color: #b388ff; margin-right: 0.2em;"></ons-icon>
+                <ons-input id="user-phone" type="tel" required modifier="underbar" placeholder="Phone Number" float
+                           data-parsley-required-message="your registered email is required"
+                           data-parsley-type-message="incorrect email format"
+                           style="color: #311b92; text-align: center !important;" class="hint--top"></ons-input>
+            </ons-col>
+        </ons-row>
+        <ons-row style="margin-bottom: 2em; text-align: center;">
+            <ons-col>
+                <ons-icon icon="md-lock" size="28px" class="second" style="color: #b388ff; margin-right: 0.2em;"></ons-icon>
+                <ons-input id="secure-pin" type="tel" required pattern="[\w@\-]{6,}" modifier="underbar" placeholder="Secure PIN" float
+                           data-parsley-required-message="your password is required"
+                           data-parsley-pattern-message="incorrect password format. password must have at least 6 characters and no spaces"
+                           style="color: #311b92; text-align: center !important;" class="hint--bottom"></ons-input>
+            </ons-col>
+        </ons-row>
+        <ons-row style="margin-bottom: 4em;">
+            <ons-col style="text-align: center">
+                <ons-button>Sign In</ons-button>
+            </ons-col>
+        </ons-row>
+        <ons-row>
+            <ons-col style="text-align: center">
+                <ons-button id="login-create-account" modifier="quiet" style="text-transform: capitalize; background-color: #d1c4e9" class="pulse">create account</ons-button>
+                <ons-button id="login-forgot-password" modifier="quiet" style="text-transform: none">forgot PIN?</ons-button>
+            </ons-col>
+        </ons-row>
+        </div>
+    </form>
+</ons-page>
+</body>
+</html>
