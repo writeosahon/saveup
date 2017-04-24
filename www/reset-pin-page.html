@@ -35,15 +35,24 @@
                 </ons-col>
             </ons-row> <!-- end of tablet layout -->
 
-        <ons-row vertical-align="top" style="margin-bottom: 1em; margin-bottom: 2em; text-align: center;">
+        <ons-row vertical-align="top" style="margin-bottom: 1em; text-align: center;">
             <ons-col>
                 <ons-icon icon="md-saveup-icon-saveup-phone" size="28px" style="color: #b388ff; margin-right: 0.2em;"></ons-icon>
-                <ons-input id="user-phone" type="tel" required modifier="underbar" placeholder="Registered Phone Number" float
+                <ons-input id="reset-user-phone" type="tel" required modifier="underbar" placeholder="Registered Phone Number" float
                            data-parsley-required-message="your registered email is required"
                            data-parsley-type-message="incorrect email format"
                            style="color: #311b92; text-align: center !important;" class="hint--top"></ons-input>
             </ons-col>
         </ons-row>
+            <ons-row style="margin-bottom: 2em; text-align: center;">
+                <ons-col>
+                    <ons-icon icon="ion-lock-combination" size="28px" class="second" style="color: #b388ff; margin-right: 0.2em;"></ons-icon>
+                    <ons-input id="reset-master-code" type="tel" required pattern="[\w@\-]{6,}" modifier="underbar" placeholder="Master Code" float
+                               data-parsley-required-message="your password is required"
+                               data-parsley-pattern-message="incorrect password format. password must have at least 6 characters and no spaces"
+                               style="color: #311b92; text-align: center !important;" class="hint--bottom"></ons-input>
+                </ons-col>
+            </ons-row>
         <ons-row style="margin-bottom: 4em;">
             <ons-col style="text-align: center">
                 <ons-button>Reset</ons-button>

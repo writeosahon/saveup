@@ -29,3 +29,9 @@ document.addEventListener("app.Ready", utopiasoftware.saveup.controller.appReady
 
 // listen for the initialisation of the Sign-In page
 $(document).on("init", "#sign-in-page", utopiasoftware.saveup.controller.signInPageViewModel.pageInit);
+
+// listen for the hide event of the Sign-In page
+$(document).on("hide", "#sign-in-page", utopiasoftware.saveup.controller.signInPageViewModel.pageHide);
+
+// listen for the destroy event of the Sign-In page
+$(document).on("destroy", "#sign-in-page", utopiasoftware.saveup.controller.signInPageViewModel.pageDestroy);

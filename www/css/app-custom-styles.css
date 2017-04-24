@@ -1,4 +1,14 @@
 
+/** STYLE FOR PARSLEY VALIDATION LIBRARY **/
+.parsley-errors-list {
+    display: none !important;
+}
+/** STYLE FOR VALIDATION TOOLTIP **/
+[data-hint]:after {
+    font-size: 0.8em !important;
+}
+
+
 /** MODAL LOADER STYLE BEGINS **/
 #loader-modal-container {
     display: -webkit-flex;
@@ -53,3 +63,23 @@
     -webkit-animation-iteration-count: 4;
 }
 /** STYLE FOR THE SIGN-IN PAGE ICON ANIMATION ENDS **/
+
+
+/** STYLE FOR CREATE ACCOUNT PAGE BEGINS **/
+#create-account-page #create-secure-pin {
+    -webkit-text-security: disc;
+}
+/** STYLE FOR CREATE ACCOUNT PAGE ENDS **/
+
+
+/** STYLE FOR THE USER RESET-PIN PAGE INPUT FIELD BEGINS **/
+#reset-user-phone .text-input--material{
+    text-align: center;
+    color: #311b92;
+}
+#reset-master-code .text-input--material{
+    -webkit-text-security: disc;
+    text-align: center;
+    color: #311b92;
+}
+/** STYLE FOR THE USER SIGIN-IN PAGE INPUT FIELD ENDS **/

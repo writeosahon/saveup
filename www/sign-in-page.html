@@ -6,7 +6,7 @@
 <!-- sign-in-page -->
 <ons-page id="sign-in-page">
 
-    <form class="valign-wrapper" style="background-color: rgb(237, 231, 246) !important; width: 100%; overflow-x: hidden !important; min-height: 100%" id="login-form" autocomplete="off" data-parsley-inputs="ons-input,textarea,select"
+    <form id="login-form" class="valign-wrapper" style="background-color: rgb(237, 231, 246) !important; width: 100%; overflow-x: hidden !important; min-height: 100%" autocomplete="off" data-parsley-inputs="ons-input,textarea,select"
           data-parsley-excluded="ons-input[type=button], ons-input[type=submit],
                               ons-input[type=reset], ons-input[type=hidden], [disabled], :hidden">
         <div style="width: 100%;">
@@ -39,29 +39,39 @@
             <ons-col>
                 <ons-icon icon="md-saveup-icon-saveup-phone" size="28px" class="first" style="color: #b388ff; margin-right: 0.2em;"></ons-icon>
                 <ons-input id="user-phone" type="tel" required modifier="underbar" placeholder="Phone Number" float
-                           data-parsley-required-message="your registered email is required"
-                           data-parsley-type-message="incorrect email format"
+                           pattern="(0[1-9]{1}[0-9]{9}|\+234[1-9]{1}[0-9]{9})" required float
+                           data-parsley-required-message="your phone number is required"
+                           data-parsley-pattern-message="incorrect phone number format"
+                           data-parsley-type-message="incorrect phone number format"
                            style="color: #311b92; text-align: center !important;" class="hint--top"></ons-input>
             </ons-col>
         </ons-row>
         <ons-row style="margin-bottom: 2em; text-align: center;">
             <ons-col>
                 <ons-icon icon="md-lock" size="28px" class="second" style="color: #b388ff; margin-right: 0.2em;"></ons-icon>
-                <ons-input id="secure-pin" type="tel" required pattern="[\w@\-]{6,}" modifier="underbar" placeholder="Secure PIN" float
-                           data-parsley-required-message="your password is required"
-                           data-parsley-pattern-message="incorrect password format. password must have at least 6 characters and no spaces"
+                <ons-input id="secure-pin" type="number" required data-parsley-type="digits"
+                           data-parsley-minlength="4"
+                           data-parsley-maxlength="8"
+                           modifier="underbar" placeholder="Secure PIN" float
+                           data-parsley-required-message="your PIN is required"
+                           data-parsley-digits-message="your PIN must contain only numbers"
+                           data-parsley-minlength-message="your PIN must be at least 4 numbers"
+                           data-parsley-maxlength-message="your PIN cannot be more than 8 numbers"
                            style="color: #311b92; text-align: center !important;" class="hint--bottom"></ons-input>
             </ons-col>
         </ons-row>
         <ons-row style="margin-bottom: 4em;">
             <ons-col style="text-align: center">
-                <ons-button>Sign In</ons-button>
+                <ons-button id="login-signin">Sign In</ons-button>
             </ons-col>
         </ons-row>
         <ons-row>
             <ons-col style="text-align: center">
-                <ons-button id="login-create-account" modifier="quiet" style="text-transform: capitalize; background-color: #d1c4e9" class="pulse">create account</ons-button>
-                <ons-button id="login-forgot-password" modifier="quiet" style="text-transform: none">forgot PIN?</ons-button>
+                <ons-button id="login-create-account" modifier="quiet"
+                            style="text-transform: capitalize; background-color: #d1c4e9" class="pulse"
+                onclick="utopiasoftware.saveup.controller.signInPageViewModel.createAccountButtonClicked()">create account</ons-button>
+                <ons-button id="login-forgot-password" modifier="quiet" style="text-transform: none"
+                            onclick="utopiasoftware.saveup.controller.signInPageViewModel.forgotPinButtonClicked()">forgot PIN?</ons-button>
             </ons-col>
         </ons-row>
         </div>

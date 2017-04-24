@@ -85,6 +85,11 @@ utopiasoftware.saveup.controller = {
     signInPageViewModel: {
 
         /**
+         * used to hold the parsley form validation object for the sign-in page
+         */
+        formValidator: null,
+
+        /**
          * event is triggered when page is initialised
          */
         pageInit: function pageInit(event) {
@@ -115,6 +120,33 @@ utopiasoftware.saveup.controller = {
                     });
                 };
 
+                // initialise the sign-in form validation
+                utopiasoftware.saveup.controller.signInPageViewModel.formValidator = $('#login-form').parsley();
+
+                // attach listener for the sign in button on the sign-in page
+                $('#login-signin').get(0).onclick = function () {
+                    // run the validation method for the sign-in form
+                    utopiasoftware.saveup.controller.signInPageViewModel.formValidator.whenValidate();
+                };
+
+                // listen for log in form field validation failure event
+                utopiasoftware.saveup.controller.signInPageViewModel.formValidator.on('field:error', function (fieldInstance) {
+                    // get the element that triggered the field validation error and use it to display tooltip
+                    // display tooltip
+                    $(fieldInstance.$element).addClass("hint--always hint--info hint--medium hint--rounded hint--no-animate");
+                    $(fieldInstance.$element).attr("data-hint", fieldInstance.getErrorsMessages()[0]);
+                });
+
+                // listen for log in form field validation success event
+                utopiasoftware.saveup.controller.signInPageViewModel.formValidator.on('field:success', function (fieldInstance) {
+                    // remove tooltip from element
+                    $(fieldInstance.$element).removeClass("hint--always hint--info hint--medium hint--rounded hint--no-animate");
+                    $(fieldInstance.$element).removeAttr("data-hint");
+                });
+
+                // listen for log in form validation success
+                utopiasoftware.saveup.controller.signInPageViewModel.formValidator.on('form:success', utopiasoftware.saveup.controller.signInPageViewModel.signinFormValidated);
+
                 // hide the loader
                 $('#loader-modal').get(0).hide();
 
@@ -125,170 +157,54 @@ utopiasoftware.saveup.controller = {
                     $('#login-create-account', $thisPage).removeClass('pulse');
                 }, 4000);
             }
-        }
-    },
-
-    /**
-     * object is view-model for fixed-header page
-     */
-    fixedHeaderPageViewModel: {
-
-        previousScrollPosition: 0,
-
-        currentScrollPosition: 0,
-
-        /**
-         * event is triggered when page is initialised
-         */
-        pageInit: function pageInit() {
-
-            // call the function used to initialise the app page if the app is fully loaded
-            loadPageOnAppReady();
-
-            //function is used to initialise the page if the app is fully ready for execution
-            function loadPageOnAppReady() {
-                // check to see if onsen is ready and if all app loading has been completed
-                if (!ons.isReady() || utopiasoftware.template.model.isAppReady === false) {
-                    setTimeout(loadPageOnAppReady, 500); // call this function again after half a second
-                    return;
-                }
-
-                // listen for the back button event
-                var page = $('#template-navigator').get(0).topPage;
-                page.onDeviceBackButton = function () {
-                    ons.notification.confirm('Do you want to close the app?') // Ask for confirmation
-                    .then(function (index) {
-                        if (index === 1) {
-                            // OK button
-                            navigator.app.exitApp(); // Close the app
-                        }
-                    });
-                };
-
-                // add listen for the scene progress event. the listen will be used to collapse/expand the fixed header
-                $('#fixed-header-page .page__content').on("scroll", utopiasoftware.template.controller.fixedHeaderPageViewModel.collapsibleHeaderHandler);
-                console.log("ADDED PROGRESS LISTENER");
-
-                utopiasoftware.template.controller.fixedHeaderPageViewModel.previousScrollPosition = 0;
-                utopiasoftware.template.controller.fixedHeaderPageViewModel.currentScrollPosition = 0;
-            }
         },
 
         /**
-         * method is triggered when page is shown
-         */
-        pageShow: function pageShow() {
-            // call the function used to initialise the app page if the app is fully loaded
-            loadPageOnAppReady();
-
-            //function is used to initialise the page if the app is fully ready for execution
-            function loadPageOnAppReady() {
-                // check to see if onsen is ready and if all app loading has been completed
-                if (!ons.isReady() || utopiasoftware.template.model.isAppReady === false) {
-                    setTimeout(loadPageOnAppReady, 800); // call this function again after half a second
-                    return;
-                }
-
-                // hide the loader
-                $('#loader-modal').get(0).hide();
-            }
-        },
-
-        /**
-         * method is used to listen for scroll event used to collapse or expanse the fixed header
-         *
+         * method is triggered when the sign-in page is hidden
          * @param event
          */
-        collapsibleHeaderHandler: function collapsibleHeaderHandler(event) {
-            console.log("INSIDE PROGRESS LISTENER");
-
-            // set the current scrolltop position
-            utopiasoftware.template.controller.fixedHeaderPageViewModel.currentScrollPosition = $(this).scrollTop();
-
-            if (utopiasoftware.template.controller.fixedHeaderPageViewModel.currentScrollPosition > utopiasoftware.template.controller.fixedHeaderPageViewModel.previousScrollPosition) {
-                // user scrolled down
-                // set the current position as previous position
-                utopiasoftware.template.controller.fixedHeaderPageViewModel.previousScrollPosition = utopiasoftware.template.controller.fixedHeaderPageViewModel.currentScrollPosition;
-
-                // check if the collapsible header has been previously hidden. if not, hide it
-                if (this.collapsibleHidden != true) {
-                    // collapsible header has not been hidden
-                    $('#fixed-header-1').css('display', 'none'); // hide collapsible
-                    this.collapsibleHidden = true; // flag that collapsible header has been hidden
-                }
-
-                return;
-            }
-
-            if (utopiasoftware.template.controller.fixedHeaderPageViewModel.currentScrollPosition < utopiasoftware.template.controller.fixedHeaderPageViewModel.previousScrollPosition) {
-                // user scrolled up
-                // set the current position as previous position
-                utopiasoftware.template.controller.fixedHeaderPageViewModel.previousScrollPosition = utopiasoftware.template.controller.fixedHeaderPageViewModel.currentScrollPosition;
-
-                // check if the collapsible header has been previously shown. if not, show it
-                if (this.collapsibleHidden == true) {
-                    // collapsible has been hidden
-                    // collapsible header has not been hidden
-                    $('#fixed-header-1').css('display', 'block'); // hide collapsible
-                    this.collapsibleHidden = false; // flag that collapsible header has been shown
-                }
-
-                return;
-            }
-        }
-    },
-
-    /**
-     * object is view-model for login page
-     */
-    loginPageViewModel: {
+        pageHide: function pageHide(event) {
+            try {
+                // remove any tooltip being displayed on all forms in the login page
+                $('#sign-in-page [data-hint]').removeClass("hint--always hint--info hint--medium hint--rounded hint--no-animate");
+                $('#sign-in-page [data-hint]').removeAttr("data-hint");
+                // reset the form validator object in the sign-in page
+                utopiasoftware.saveup.controller.signInPageViewModel.formValidator.reset();
+            } catch (err) {}
+        },
 
         /**
-         * event is triggered when page is initialised
+         * method is triggered when the sign-in page is destroyed
+         * @param event
          */
-        pageInit: function pageInit() {
+        pageDestroy: function pageDestroy(event) {
+            try {
+                // remove any tooltip being displayed on all forms in the login page
+                $('#sign-in-page [data-hint]').removeClass("hint--always hint--info hint--medium hint--rounded hint--no-animate");
+                $('#sign-in-page [data-hint]').removeAttr("data-hint");
+                // destroy the form validator objects in the login page
+                utopiasoftware.saveup.controller.signInPageViewModel.formValidator.destroy();
+            } catch (err) {}
+        },
 
-            // call the function used to initialise the app page if the app is fully loaded
-            loadPageOnAppReady();
+        /**
+         * method is triggered when sign-in form is successfully validated
+         */
+        signinFormValidated: function signinFormValidated() {},
 
-            //function is used to initialise the page if the app is fully ready for execution
-            function loadPageOnAppReady() {
-                // check to see if onsen is ready and if all app loading has been completed
-                if (!ons.isReady() || utopiasoftware.template.model.isAppReady === false) {
-                    setTimeout(loadPageOnAppReady, 500); // call this function again after half a second
-                    return;
-                }
+        /**
+         * method is triggered when
+         */
+        createAccountButtonClicked: function createAccountButtonClicked() {
+            // move the tab view to the Sign Up tab
+            $('#login-tabbar').get(0).setActiveTab(1, { animation: "slide" });
+        },
 
-                // listen for the back button event
-                var page = $('#template-navigator').get(0).topPage;
-                page.onDeviceBackButton = function () {
-                    ons.notification.confirm('Do you want to close the app?') // Ask for confirmation
-                    .then(function (index) {
-                        if (index === 1) {
-                            // OK button
-                            navigator.app.exitApp(); // Close the app
-                        }
-                    });
-                };
-
-                $(".log-in").click(function () {
-                    $(".signIn").addClass("active-dx");
-                    $(".signUp").addClass("inactive-sx");
-                    $(".signUp").removeClass("active-sx");
-                    $(".signIn").removeClass("inactive-dx");
-                });
-
-                $(".back").click(function () {
-                    $(".signUp").addClass("active-sx");
-                    $(".signIn").addClass("inactive-dx");
-                    $(".signIn").removeClass("active-dx");
-                    $(".signUp").removeClass("inactive-sx");
-                });
-
-                // hide the loader
-                $('#loader-modal').get(0).hide();
-            }
+        forgotPinButtonClicked: function forgotPinButtonClicked() {
+            // move the tab view to the Sign Up tab
+            $('#login-tabbar').get(0).setActiveTab(2, { animation: "slide" });
         }
+
     }
 };
 
