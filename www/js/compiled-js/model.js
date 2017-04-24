@@ -35,3 +35,12 @@ $(document).on("hide", "#sign-in-page", utopiasoftware.saveup.controller.signInP
 
 // listen for the destroy event of the Sign-In page
 $(document).on("destroy", "#sign-in-page", utopiasoftware.saveup.controller.signInPageViewModel.pageDestroy);
+
+// listen for the initialisation of the Create Account page
+$(document).on("init", "#create-account-page", utopiasoftware.saveup.controller.createAccountPageViewModel.pageInit);
+
+// listen for the hide event of the Create Account page
+$(document).on("hide", "#create-account-page", utopiasoftware.saveup.controller.createAccountPageViewModel.pageHide);
+
+// listen for the destroy event of the Create Account page
+$(document).on("destroy", "#create-account-page", utopiasoftware.saveup.controller.createAccountPageViewModel.pageDestroy);

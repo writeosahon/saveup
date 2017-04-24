@@ -6,9 +6,9 @@
 <!-- create account page -->
 <ons-page id="create-account-page">
 
-    <form id="create-account-form" autocomplete="off" data-parsley-inputs="ons-input,textarea,select"
-          data-parsley-excluded="ons-input[type=button], ons-input[type=submit],
-                              ons-input[type=reset], ons-input[type=hidden], [disabled], :hidden">
+    <form id="create-account-form" autocomplete="off" data-parsley-inputs="input,textarea,select"
+          data-parsley-excluded="input[type=button], input[type=submit],
+                              input[type=reset], input[type=hidden], [disabled], :hidden">
 
         <ons-list>
             <ons-list-header style="font-size: 1.3em; margin:0; text-align: center; background-color: #ede7f6; color: #b388ff">
@@ -21,9 +21,8 @@
                 <div class="col s8 input-field">
                     <input id="create-first-name" type="text" pattern="[a-zA-Z]{1}[\w\s\-\.]*[a-zA-Z]{1}" required float
                            data-parsley-required-message="your first name is required"
-                           data-parsley-pattern-message="incorrect first name format. please check your spelling"
-                           class="hint--bottom">
-                    <label for="create-first-name">First Name</label>
+                           data-parsley-pattern-message="incorrect first name format. please check your spelling">
+                    <label for="create-first-name" class="hint--top">First Name</label>
                 </div>
             </div>
 
@@ -35,9 +34,8 @@
                     <input id="create-last-name" type="text" modifier="underbar"
                            pattern="[a-zA-Z]{1}[\w\s\-\.]*[a-zA-Z]{1}" required float
                            data-parsley-required-message="your last name is required"
-                           data-parsley-pattern-message="incorrect last name format. please check your spelling"
-                           class="hint--bottom">
-                    <label for="create-last-name">Last Name</label>
+                           data-parsley-pattern-message="incorrect last name format. please check your spelling">
+                    <label for="create-last-name" class="hint--top">Last Name</label>
                 </div>
             </div>
 
@@ -50,16 +48,13 @@
                            placeholder="Where app is installed" pattern="(0[1-9]{1}[0-9]{9}|\+234[1-9]{1}[0-9]{9})"
                            data-parsley-required-message="your phone number is required"
                            data-parsley-pattern-message="incorrect phone number format"
-                           data-parsley-type-message="incorrect phone number format"
-                           class="hint--bottom">
-                    <label for="create-phone" class="active">Phone Number</label>
+                           data-parsley-type-message="incorrect phone number format">
+                    <label for="create-phone" class="active hint--top">Phone Number</label>
                 </div>
-                <div style="text-align: center;">
-                    <input id="create-verify-phone" type="checkbox" required
-                           data-parsley-required-message="your phone number is required"
-                           data-parsley-pattern-message="incorrect phone number format"
-                           data-parsley-type-message="incorrect phone number format"
-                           class="hint--bottom">
+                <div class="col s12" style="text-align: center;">
+                    <label class="hint--top-right">&nbsp;&nbsp;&nbsp;</label>
+                    <input id="create-verify-phone" type="checkbox" required value="verified"
+                           data-parsley-required-message="tick this box for verification">
                     <label for="create-verify-phone">Verify Phone Number</label>
                 </div>
 
@@ -71,15 +66,19 @@
                 </div>
                 <div class="col s7 input-field">
                     <input id="create-secure-pin" type="number" required
+                           data-parsley-type="digits"
+                           data-parsley-minlength="4"
+                           data-parsley-maxlength="8"
                            placeholder="For secure login"
-                           data-parsley-required-message="your phone number is required"
-                           data-parsley-pattern-message="incorrect phone number format"
-                           data-parsley-type-message="incorrect phone number format"
-                           class="hint--bottom">
-                    <label for="create-secure-pin" class="active">Create Secure PIN</label>
+                           data-parsley-required-message="create your PIN"
+                           data-parsley-digits-message="your PIN must contain only numbers"
+                           data-parsley-minlength-message="your PIN must be at least 4 numbers"
+                           data-parsley-maxlength-message="your PIN cannot be more than 8 numbers">
+                    <label for="create-secure-pin" class="active hint--top">Create Secure PIN</label>
                 </div>
                 <div class="col s3" style="padding-top: 0.2em;">
-                    <ons-button modifier="quiet" data-saveup-visible="no" style="font-size: 1.2em">
+                    <ons-button modifier="quiet" data-saveup-visible="no" style="font-size: 1.2em"
+                    onclick="utopiasoftware.saveup.controller.createAccountPageViewModel.pinVisibilityButtonClicked(this);">
                         <ons-icon icon="md-eye"></ons-icon></ons-button>
                 </div>
             </div>
