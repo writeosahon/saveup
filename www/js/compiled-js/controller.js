@@ -338,5 +338,121 @@ utopiasoftware.saveup.controller = {
             }
         }
 
+    },
+
+    /**
+     * object is view-model for reset-pin page
+     */
+    resetPinPageViewModel: {
+
+        /**
+         * used to hold the parsley form validation object for the sign-in page
+         */
+        formValidator: null,
+
+        /**
+         * event is triggered when page is initialised
+         */
+        pageInit: function(event){
+
+            var $thisPage = $(event.target); // get the current page shown
+            // find all onsen-ui input targets and insert a special class to prevent materialize-css from updating the styles
+            $('ons-input input', $thisPage).addClass('utopiasoftware-no-style');
+
+            // call the function used to initialise the app page if the app is fully loaded
+            loadPageOnAppReady();
+
+            //function is used to initialise the page if the app is fully ready for execution
+            function loadPageOnAppReady(){
+                // check to see if onsen is ready and if all app loading has been completed
+                if(!ons.isReady() || utopiasoftware.saveup.model.isAppReady === false){
+                    setTimeout(loadPageOnAppReady, 500); // call this function again after half a second
+                    return;
+                }
+
+                // listen for the back button event
+                $thisPage.get(0).onDeviceBackButton = function(){
+                    // move to the first tab in the tab bar i.e sign-in page
+                    $('#login-tabbar').get(0).setActiveTab(0, {animation: "slide"});
+                };
+
+                // initialise the reset-pin form validation
+                utopiasoftware.saveup.controller.resetPinPageViewModel.formValidator = $('#reset-pin-form').parsley();
+
+                // attach listener for the reset button on the reset-pin page
+                $('#reset-pin-reset').get(0).onclick = function(){
+                    // run the validation method for the sign-in form
+                    utopiasoftware.saveup.controller.resetPinPageViewModel.formValidator.whenValidate();
+                };
+
+                // listen for log in form field validation failure event
+                utopiasoftware.saveup.controller.resetPinPageViewModel.formValidator.on('field:error', function(fieldInstance) {
+                    // get the element that triggered the field validation error and use it to display tooltip
+                    // display tooltip
+                    $(fieldInstance.$element).addClass("hint--always hint--info hint--medium hint--rounded hint--no-animate");
+                    $(fieldInstance.$element).attr("data-hint", fieldInstance.getErrorsMessages()[0]);
+                });
+
+                // listen for log in form field validation success event
+                utopiasoftware.saveup.controller.resetPinPageViewModel.formValidator.on('field:success', function(fieldInstance) {
+                    // remove tooltip from element
+                    $(fieldInstance.$element).removeClass("hint--always hint--info hint--medium hint--rounded hint--no-animate");
+                    $(fieldInstance.$element).removeAttr("data-hint");
+                });
+
+                // listen for log in form validation success
+                utopiasoftware.saveup.controller.resetPinPageViewModel.formValidator.on('form:success',
+                    utopiasoftware.saveup.controller.resetPinPageViewModel.resetPinFormValidated);
+
+                // hide the loader
+                $('#loader-modal').get(0).hide();
+
+            }
+
+        },
+
+        /**
+         * method is triggered when the page is hidden
+         * @param event
+         */
+        pageHide: (event) => {
+            try {
+                // remove any tooltip being displayed on all forms in the page
+                $('#reset-pin-page [data-hint]').removeClass("hint--always hint--info hint--medium hint--rounded hint--no-animate");
+                $('#reset-pin-page [data-hint]').removeAttr("data-hint");
+                // reset the form validator object in the page
+                utopiasoftware.saveup.controller.resetPinPageViewModel.formValidator.reset();
+            }
+            catch(err){}
+        },
+
+        /**
+         * method is triggered when the page is destroyed
+         * @param event
+         */
+        pageDestroy: (event) => {
+            try{
+                // remove any tooltip being displayed on all forms in the page
+                $('#reset-pin-page [data-hint]').removeClass("hint--always hint--info hint--medium hint--rounded hint--no-animate");
+                $('#reset-pin-page [data-hint]').removeAttr("data-hint");
+                // destroy the form validator objects in the page
+                utopiasoftware.saveup.controller.resetPinPageViewModel.formValidator.destroy();
+            }
+            catch(err){}
+        },
+
+        /**
+         * method is triggered when reset-pin form is successfully validated
+         */
+        resetPinFormValidated: function(){},
+
+        /**
+         * method is triggered when back to Sign In button is clicked
+         */
+        signInButtonClicked: function(){
+            // move the tab view to the Sign In tab
+            $('#login-tabbar').get(0).setActiveTab(0, {animation: "slide"});
+        }
+
     }
 };

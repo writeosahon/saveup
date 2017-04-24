@@ -6,7 +6,7 @@
 <!-- reset-pin-page -->
 <ons-page id="reset-pin-page">
 
-    <form class="valign-wrapper" style="background-color: rgb(237, 231, 246) !important; width: 100%; overflow-x: hidden !important; min-height: 100%" id="reset-pin-form" autocomplete="off" data-parsley-inputs="ons-input,textarea,select"
+    <form id="reset-pin-form" class="valign-wrapper" style="background-color: rgb(237, 231, 246) !important; width: 100%; overflow-x: hidden !important; min-height: 100%" autocomplete="off" data-parsley-inputs="ons-input,textarea,select"
           data-parsley-excluded="ons-input[type=button], ons-input[type=submit],
                               ons-input[type=reset], ons-input[type=hidden], [disabled], :hidden">
         <div style="width: 100%;">
@@ -38,29 +38,37 @@
         <ons-row vertical-align="top" style="margin-bottom: 1em; text-align: center;">
             <ons-col>
                 <ons-icon icon="md-saveup-icon-saveup-phone" size="28px" style="color: #b388ff; margin-right: 0.2em;"></ons-icon>
-                <ons-input id="reset-user-phone" type="tel" required modifier="underbar" placeholder="Registered Phone Number" float
-                           data-parsley-required-message="your registered email is required"
-                           data-parsley-type-message="incorrect email format"
+                <ons-input id="reset-user-phone" type="tel" required modifier="underbar" placeholder="Registered Phone no." float
+                           pattern="(0[1-9]{1}[0-9]{9}|\+234[1-9]{1}[0-9]{9})" required float
+                           data-parsley-required-message="your registered phone number is required"
+                           data-parsley-pattern-message="incorrect phone number format"
+                           data-parsley-type-message="incorrect phone number format"
                            style="color: #311b92; text-align: center !important;" class="hint--top"></ons-input>
             </ons-col>
         </ons-row>
             <ons-row style="margin-bottom: 2em; text-align: center;">
                 <ons-col>
                     <ons-icon icon="ion-lock-combination" size="28px" class="second" style="color: #b388ff; margin-right: 0.2em;"></ons-icon>
-                    <ons-input id="reset-master-code" type="tel" required pattern="[\w@\-]{6,}" modifier="underbar" placeholder="Master Code" float
-                               data-parsley-required-message="your password is required"
-                               data-parsley-pattern-message="incorrect password format. password must have at least 6 characters and no spaces"
+                    <ons-input id="reset-master-code" type="number" required data-parsley-type="digits"
+                               data-parsley-minlength="10"
+                               data-parsley-maxlength="10"
+                               modifier="underbar" placeholder="Master Code" float
+                               data-parsley-required-message="your Master Code is required"
+                               data-parsley-digits-message="your Master Code must contain only numbers"
+                               data-parsley-minlength-message="your Master Code MUST be 10 numbers"
+                               data-parsley-maxlength-message="your Master Code MUST be 10 numbers"
                                style="color: #311b92; text-align: center !important;" class="hint--bottom"></ons-input>
                 </ons-col>
             </ons-row>
         <ons-row style="margin-bottom: 4em;">
             <ons-col style="text-align: center">
-                <ons-button>Reset</ons-button>
+                <ons-button id="reset-pin-reset">Reset</ons-button>
             </ons-col>
         </ons-row>
         <ons-row>
             <ons-col style="text-align: center">
-                <ons-button modifier="quiet" style="text-transform: none">back to Sign In</ons-button>
+                <ons-button modifier="quiet" style="text-transform: none"
+                onclick="utopiasoftware.saveup.controller.resetPinPageViewModel.signInButtonClicked();">back to Sign In</ons-button>
             </ons-col>
         </ons-row>
         </div>
