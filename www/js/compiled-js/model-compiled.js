@@ -56,4 +56,7 @@ $(document).on("hide", "#reset-pin-page", utopiasoftware.saveup.controller.reset
 // listen for the destroy event of the Reset-Pin page
 $(document).on("destroy", "#reset-pin-page", utopiasoftware.saveup.controller.resetPinPageViewModel.pageDestroy);
 
+// listen for the initialisation of the Onboarding page
+$(document).on("init", "#onboarding-page", utopiasoftware.saveup.controller.onboardingPageViewModel.pageInit);
+
 //# sourceMappingURL=model-compiled.js.map

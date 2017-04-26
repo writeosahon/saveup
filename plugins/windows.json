@@ -27,6 +27,9 @@
         },
         "cordova-plugin-sms": {
             "PACKAGE_NAME": "HelloCordova"
+        },
+        "cordova-plugin-privacyscreen": {
+            "PACKAGE_NAME": "HelloCordova"
         }
     },
     "dependent_plugins": {}

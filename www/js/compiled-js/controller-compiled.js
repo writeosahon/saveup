@@ -111,7 +111,8 @@ utopiasoftware.saveup.controller = {
 
                 // listen for the back button event
                 $thisPage.get(0).onDeviceBackButton = function () {
-                    ons.notification.confirm('Do you want to close the app?') // Ask for confirmation
+                    ons.notification.confirm('Do you want to close the app?', { title: 'Exit',
+                        buttonLabels: ['No', 'Yes'] }) // Ask for confirmation
                     .then(function (index) {
                         if (index === 1) {
                             // OK button
@@ -309,7 +310,10 @@ utopiasoftware.saveup.controller = {
         /**
          * method is triggered when sign-in form is successfully validated
          */
-        createAccountFormValidated: function createAccountFormValidated() {},
+        createAccountFormValidated: function createAccountFormValidated() {
+
+            $('ons-splitter').get(0).content.load("onboarding-template");
+        },
 
         /**
          * method is triggered when the Create Account PIN visibility button is clicked.
@@ -440,6 +444,76 @@ utopiasoftware.saveup.controller = {
         signInButtonClicked: function signInButtonClicked() {
             // move the tab view to the Sign In tab
             $('#login-tabbar').get(0).setActiveTab(0, { animation: "slide" });
+        }
+
+    },
+
+    /**
+     * object is view-model for onboarding page
+     */
+    onboardingPageViewModel: {
+
+        /**
+         * event is triggered when page is initialised
+         */
+        pageInit: function pageInit(event) {
+
+            var $thisPage = $(event.target); // get the current page shown
+
+            // call the function used to initialise the app page if the app is fully loaded
+            loadPageOnAppReady();
+
+            //function is used to initialise the page if the app is fully ready for execution
+            function loadPageOnAppReady() {
+                // check to see if onsen is ready and if all app loading has been completed
+                if (!ons.isReady() || utopiasoftware.saveup.model.isAppReady === false) {
+                    setTimeout(loadPageOnAppReady, 500); // call this function again after half a second
+                    return;
+                }
+
+                // listen for the back button event
+                $('#onboarding-navigator').get(0).topPage.onDeviceBackButton = function () {
+                    ons.notification.confirm('Do you want to close the app?', { title: 'Exit',
+                        buttonLabels: ['No', 'Yes'] }) // Ask for confirmation
+                    .then(function (index) {
+                        if (index === 1) {
+                            // OK button
+                            navigator.app.exitApp(); // Close the app
+                        }
+                    });
+                };
+
+                // initialise carousel
+                $('#onboarding-carousel', $thisPage).carousel({ dist: 0, fullWidth: true, indicators: true, noWrap: true });
+                // hide the loader
+                $('#loader-modal').get(0).hide();
+            }
+        },
+
+        /**
+         * method is used to move the onboarding presentation to the next slide
+         *
+         * @param buttonElem
+         */
+        nextSlideButtonClicked: function nextSlideButtonClicked(buttonElem) {
+            $('#onboarding-carousel').carousel('next'); // move to the next slide
+            // wait for the slide animation to complete
+            setTimeout(function () {
+                // check if this is the last slide in the presentation
+                if ($('.carousel-item.active').is('[href="#three!"]')) {
+                    // this is the last slide
+                    $(buttonElem).css("display", "none"); // hide the Next button
+                }
+            }, 205);
+        },
+
+        /**
+         * method is used to end the onboarding presentation
+         */
+        endButtonClicked: function endButtonClicked() {
+
+            // test load the the login template
+            $('ons-splitter').get(0).content.load("login-template");
         }
 
     }

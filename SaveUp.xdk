@@ -5,7 +5,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "",
       "projectGuid": "7d58033a-a2d8-4704-b62c-365c3cde9282",
-      "lastModifiedDate": 1492641600008,
+      "lastModifiedDate": 1493243366517,
       "creationDate": 1492629115016
     },
     "testDirectory": "test",
@@ -335,6 +335,25 @@
           ]
         },
         "description": "Cordova plugin to operate SMS, send/list/intercept/delete/restore",
+        "data": {},
+        "dependedBy": [],
+        "custom": "true"
+      },
+      {
+        "id": "cordova-plugin-privacyscreen",
+        "name": "PrivacyScreenPlugin",
+        "version": "0.3.1",
+        "originType": "cordova.io",
+        "origin": "cordova-plugin-privacyscreen",
+        "gitref": "",
+        "paramvals": {},
+        "sourceLocation": "plugins/cordova-plugin-privacyscreen",
+        "selectedState": "Included",
+        "checksum": "ff258198",
+        "dependsOn": [],
+        "topLevel": true,
+        "permissions": {},
+        "description": "Secures your app from displaying a screenshot in task switchers under Android and iOS. Keeps sensitive information private.",
         "data": {},
         "dependedBy": [],
         "custom": "true"
