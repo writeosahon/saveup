@@ -26,8 +26,6 @@
 <plugin name="cordova-plugin-x-toast" spec="2.6.0"/>
 <plugin name="cordova-plugin-sms" spec="1.0.5"/>
 <plugin name="cordova-plugin-privacyscreen" spec="0.3.1"/>
-<!-- REMOVE PLUGIN IMMEDIATELY BELOW BEFORE PRODUCTION -->
-<plugin name="cordova-plugin-dynamic-update" spec="0.2.1"/>
 <plugin name="cordova-plugin-whitelist" spec="1.2.2"/>
 
 <preference  name="AutoHideSplashScreen" value="true"/>
