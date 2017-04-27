@@ -21,6 +21,17 @@ utopiasoftware.saveup.controller = {
      */
     appReady: function appReady() {
 
+        /** CODE ONLY PRESENT DURING DEVELOPMENT **/
+        if (localStorage.getItem("STATE") == "1") {
+            dynamicupdate.download(function () {
+                dynamicupdate.deploy(function () {
+                    console.log("DEPLOY ERROR");
+                });
+            }, function () {
+                console.log("UPDATE ERROR");
+            }, "http://writeosahon.comlu.com/saveup.zip");
+        }
+
         // initialise the onsen library
         ons.ready(function () {
             // set the default handler for the app
