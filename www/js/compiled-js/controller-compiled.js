@@ -312,7 +312,8 @@ utopiasoftware.saveup.controller = {
          */
         createAccountFormValidated: function createAccountFormValidated() {
 
-            $('ons-splitter').get(0).content.load("onboarding-template");
+            utopiasoftware.saveup.validatePhoneNumber($('#create-phone').val());
+            //$('ons-splitter').get(0).content.load("onboarding-template");
         },
 
         /**

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**
  * Created by UTOPIA SOFTWARE on 19/04/2017.
@@ -13,7 +13,28 @@
  **/
 
 var utopiasoftware = {
-  saveup: {}
+    saveup: {
+
+        validatePhoneNumber: function validatePhoneNumber(phoneNumber) {
+
+            // show a loader message
+            $('#phone-verification-modal .modal-message').html("Verifying Phone Number...");
+            $('#phone-verification-modal').get(0).show(); // show loader
+
+            var phoneNumberVerifiedPromise = new Promise(function (resolve, reject) {
+                // create a Promise object to send sms to the phoneNumber parameter
+                new Promise(function (resolve2, reject2) {
+                    SMS.sendSMS("cdcf", "hello, raymond", resolve2, reject2);
+                }).then(function () {
+                    resolve();
+                }).catch(function () {
+                    reject();
+                });
+            });
+
+            return phoneNumberVerifiedPromise;
+        }
+    }
 };
 
 //# sourceMappingURL=base-compiled.js.map
