@@ -5574,7 +5574,7 @@ button.btn-floating {
   z-index: -1;
 }
 
-.modal {
+.modal:not(ons-modal) {
   display: none;
   position: fixed;
   left: 0;
@@ -5590,7 +5590,7 @@ button.btn-floating {
 }
 
 @media only screen and (max-width: 992px) {
-  .modal {
+  .modal:not(ons-modal) {
     width: 80%;
   }
 }

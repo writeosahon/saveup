@@ -312,7 +312,26 @@ utopiasoftware.saveup.controller = {
          */
         createAccountFormValidated: function createAccountFormValidated() {
 
-            utopiasoftware.saveup.validatePhoneNumber($('#create-phone').val());
+            // tell the user that phoe number verification is necessary
+            new Promise(function (resolve, reject) {
+                ons.notification.confirm('To complete account creation, your phone number must be verified. <br>' + 'Usual SMS charge from your phone network provider will apply', { title: 'Verify Phone Number',
+                    buttonLabels: ['Cancel', 'Ok'] }) // Ask for confirmation
+                .then(function (index) {
+                    if (index === 1) {
+                        // OK button
+                        resolve();
+                    } else {
+                        reject("your phone number could not be verified");
+                    }
+                });
+            }).then(function () {
+                return utopiasoftware.saveup.validatePhoneNumber($('#create-phone').val());
+            }).catch(function (err) {
+                ons.notification.alert({ title: "Account Creation Failed",
+                    messageHTML: '<ons-icon icon="md-close-circle-o" size="30px" ' + 'style="color: red;"></ons-icon> <span>' + err + '</span>',
+                    cancelable: false
+                });
+            });
             //$('ons-splitter').get(0).content.load("onboarding-template");
         },
 
