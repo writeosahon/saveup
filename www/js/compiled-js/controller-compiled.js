@@ -97,6 +97,8 @@ utopiasoftware.saveup.controller = {
             var $thisPage = $(event.target); // get the current page shown
             // find all onsen-ui input targets and insert a special class to prevent materialize-css from updating the styles
             $('ons-input input', $thisPage).addClass('utopiasoftware-no-style');
+            // disable the swipeable feature for the app splitter
+            $('ons-splitter-side').removeAttr("swipeable");
 
             // call the function used to initialise the app page if the app is fully loaded
             loadPageOnAppReady();
@@ -481,6 +483,8 @@ utopiasoftware.saveup.controller = {
         pageInit: function pageInit(event) {
 
             var $thisPage = $(event.target); // get the current page shown
+            // disable the swipeable feature for the app splitter
+            $('ons-splitter-side').removeAttr("swipeable");
 
             // call the function used to initialise the app page if the app is fully loaded
             loadPageOnAppReady();
@@ -551,6 +555,8 @@ utopiasoftware.saveup.controller = {
         pageInit: function pageInit(event) {
 
             var $thisPage = $(event.target); // get the current page shown
+            // disable the swipeable feature for the app splitter
+            $('ons-splitter-side').removeAttr("swipeable");
 
             // call the function used to initialise the app page if the app is fully loaded
             loadPageOnAppReady();
@@ -581,7 +587,7 @@ utopiasoftware.saveup.controller = {
         },
 
         /**
-         * method is used to move the onboarding presentation to the next slide
+         * method is used to listen for click events of the main menu items
          *
          * @param label
          */
@@ -593,15 +599,6 @@ utopiasoftware.saveup.controller = {
 
                 return;
             }
-        },
-
-        /**
-         * method is used to end the onboarding presentation
-         */
-        endButtonClicked: function endButtonClicked() {
-
-            // load the main menu template
-            $('ons-splitter').get(0).content.load("app-main-template");
         }
 
     }
