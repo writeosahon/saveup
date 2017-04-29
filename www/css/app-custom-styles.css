@@ -90,3 +90,7 @@
     background-image: -webkit-linear-gradient(top, #EDE7F6 0%, #cebfff 35%, #EDE7F6 37%, #b388ff 100%);
 }
 /** STYLE FOR ONBOARDING PAGE ENDS **/
+
+#main-menu-page .page--material__background {
+    background-color: #EDE7F6;
+}

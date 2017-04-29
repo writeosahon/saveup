@@ -335,7 +335,11 @@ utopiasoftware.saveup.controller = {
                     });
             }).
             then(function(){
-               return utopiasoftware.saveup.validatePhoneNumber($('#create-phone').val());
+                return null;
+               //return utopiasoftware.saveup.validatePhoneNumber($('#create-phone').val());
+            }).
+            then(function(){
+                $('ons-splitter').get(0).content.load("onboarding-template");
             }).
             catch(function(err){
                 ons.notification.alert({title: "Account Creation Failed",
@@ -344,7 +348,6 @@ utopiasoftware.saveup.controller = {
                     cancelable: false
                 });
             });
-            //$('ons-splitter').get(0).content.load("onboarding-template");
         },
 
         /**
@@ -552,8 +555,77 @@ utopiasoftware.saveup.controller = {
          */
         endButtonClicked: function(){
 
-            // test load the the login template
-            $('ons-splitter').get(0).content.load("login-template");
+            // load the main menu template
+            $('ons-splitter').get(0).content.load("app-main-template");
+        }
+
+    },
+
+    /**
+     * object is view-model for main-menu page
+     */
+    mainMenuPageViewModel: {
+
+
+        /**
+         * event is triggered when page is initialised
+         */
+        pageInit: function(event){
+
+            var $thisPage = $(event.target); // get the current page shown
+
+            // call the function used to initialise the app page if the app is fully loaded
+            loadPageOnAppReady();
+
+            //function is used to initialise the page if the app is fully ready for execution
+            function loadPageOnAppReady(){
+                // check to see if onsen is ready and if all app loading has been completed
+                if(!ons.isReady() || utopiasoftware.saveup.model.isAppReady === false){
+                    setTimeout(loadPageOnAppReady, 500); // call this function again after half a second
+                    return;
+                }
+
+                // listen for the back button event
+                $('#app-main-navigator').get(0).topPage.onDeviceBackButton = function(){
+                    ons.notification.confirm('Do you want to close the app?', {title: 'Exit',
+                            buttonLabels: ['No', 'Yes']}) // Ask for confirmation
+                        .then(function(index) {
+                            if (index === 1) { // OK button
+                                navigator.app.exitApp(); // Close the app
+                            }
+                        });
+                };
+
+                // hide the loader
+                $('#loader-modal').get(0).hide();
+
+            }
+
+        },
+
+
+        /**
+         * method is used to move the onboarding presentation to the next slide
+         *
+         * @param label
+         */
+        mainMenuButtonsClicked: function(label){
+            if(label == "intro"){ // intro button was clicked
+
+                $('ons-splitter').get(0).content.load("onboarding-template"); // navigate to the onboarding presentation
+
+                return;
+            }
+        },
+
+
+        /**
+         * method is used to end the onboarding presentation
+         */
+        endButtonClicked: function(){
+
+            // load the main menu template
+            $('ons-splitter').get(0).content.load("app-main-template");
         }
 
     }

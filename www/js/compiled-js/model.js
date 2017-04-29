@@ -56,3 +56,6 @@ $(document).on("destroy", "#reset-pin-page", utopiasoftware.saveup.controller.re
 
 // listen for the initialisation of the Onboarding page
 $(document).on("init", "#onboarding-page", utopiasoftware.saveup.controller.onboardingPageViewModel.pageInit);
+
+// listen for the initialisation of the Main-Menu page
+$(document).on("init", "#main-menu-page", utopiasoftware.saveup.controller.mainMenuPageViewModel.pageInit);

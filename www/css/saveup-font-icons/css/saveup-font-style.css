@@ -210,3 +210,43 @@
 
   content: '\e903';
 }
+.zmdi-saveup-icon-saveup-my-savings:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 'saveup-font-icons';
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  content: '\e904';
+}
+.zmdi-saveup-icon-saveup-make-savings:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 'saveup-font-icons';
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  content: '\e905';
+}
+.zmdi-saveup-icon-saveup-saving-group:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 'saveup-font-icons';
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  content: '\e906';
+}
+.zmdi-saveup-icon-saveup-contactus:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 'saveup-font-icons';
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  content: '\e907';
+}
